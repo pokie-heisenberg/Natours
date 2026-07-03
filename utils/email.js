@@ -9,8 +9,10 @@ module.exports = class Email {
     this.from = `Aman yadav <${process.env.EMAIL_FROM}>`;
   }
   newTransport() {
-    if (process.env.NODE_ENV === 'production') {
+    console.log(`Current NODE_ENV is: "${process.env.NODE_ENV}"`);
+    if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
       //SendGrid
+      console.log('Using SendGrid transport...');
       return nodemailer.createTransport({
         service: 'SendGrid',
         auth: {
@@ -19,6 +21,7 @@ module.exports = class Email {
         },
       });
     }
+    console.log('Using Mailtrap transport...');
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: process.env.EMAIL_PORT,
