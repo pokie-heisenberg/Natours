@@ -8,7 +8,6 @@ const sharp = require('sharp');
 const factoryFunction = require('./factoryFunction');
 // exports.checkID = (req, res, next, val) => {
 //   // param  stores in the ---> val ;
-//   console.log(`ID:${val}`);
 //   if (req.params.id > tours.length - 1) {
 //     return res.status(404).json({
 //       status: 'failure',
@@ -18,7 +17,6 @@ const factoryFunction = require('./factoryFunction');
 //   next();
 // };
 // exports.checkBody = (req, res, next) => {
-//   console.log(req.body);
 //   const obj = req.body;
 //   if (!obj.name || !obj.price) {
 //     return res.status(400).json({
@@ -45,7 +43,6 @@ exports.uploadTourImages = upload.fields([
   { name: 'images', maxCount: 3 },
 ]);
 exports.resizeTourimages = catchAsyncError(async (req, res, next) => {
-  console.log(req.files);
   if (!req.files.imageCover || !req.files.images) return next();
   //imageCover
   req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;

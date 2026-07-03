@@ -16,11 +16,10 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const globalErrorHandler = require('./controllers/errorController');
 const viewRouter = require('./routes/viewRoutes');
-
+const compression = require('compression');
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 // middleware
-console.log(process.env.NODE_ENV);
 
 //1.set security headers
 // app.use(helmet());
@@ -45,6 +44,7 @@ app.use(
     ],
   })
 );
+app.use(compression());
 //rate limiter
 const limiter = rateLimiter({
   max: 100,
@@ -53,7 +53,6 @@ const limiter = rateLimiter({
 });
 app.use('/api', limiter);
 app.use((req, res, next) => {
-  console.log(req.cookies);
   next();
 });
 app.use(express.static(`${__dirname}/public`));

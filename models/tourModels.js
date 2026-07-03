@@ -132,7 +132,6 @@ tourSchema.index({ startLocation: '2dsphere' });
 tourSchema.pre('save', function () {
   // there is no next parameter in new version
   //runs before .save() and .create()
-  console.log(this);
 });
 // tourSchema.pre('save', async function () {
 //   const PromiseArray = this.guides.map(async (id) => await User.findById(id));
@@ -147,7 +146,6 @@ tourSchema.pre(/^find/, function () {
   this.starts = Date.now();
 });
 tourSchema.post(/^find/, function (docs) {
-  console.log(`Query took ${Date.now() - this.starts}millisecond`);
 });
 tourSchema.pre(/^find/, function () {
   this.populate({

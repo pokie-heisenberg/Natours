@@ -78,7 +78,6 @@ exports.protect = catchAsyncError(async (req, res, next) => {
   } else if (req.cookies) {
     token = req.cookies.jwt;
   }
-  // console.log(token);
   if (!token) {
     return next(new appError('You are not logged in!,Please logged in', 401));
   }
@@ -161,7 +160,6 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
       message: 'token sent to email',
     });
   } catch (err) {
-    console.log(err);
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
