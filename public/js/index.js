@@ -7,6 +7,7 @@ import { sendForgotPasswordLink } from './forgotPasword';
 import { resetPassword } from './resetPassword';
 import { add_review } from './addReview';
 import { bookTour } from './stripe';
+import { showAlert } from './alert';
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
@@ -124,6 +125,8 @@ if (bookBtn) {
     bookTour(tourId);
   });
 }
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alert) showAlert('success', alertMessage, 10);
 // Prevent back-forward cache (bfcache) issues
 window.addEventListener('pageshow', function (event) {
   if (event.persisted) {

@@ -2,6 +2,13 @@ const Tour = require('./../models/tourModels');
 const catchAsyncError = require('./../utils/catchAsyncError');
 const appError = require('./../utils/appError');
 const Booking = require('../models/bookingModels');
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+  if (alert === 'booking') {
+    res.locals.alert =
+      "Your booking was successful!,Please check Your Email for Conformation.If your booking doesn't show up here immediately,please come back later";
+  }
+};
 exports.getOverview = catchAsyncError(async (req, res) => {
   const tours = await Tour.find();
   res.status(200).render('overview', {
