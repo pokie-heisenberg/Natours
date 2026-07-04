@@ -6,8 +6,9 @@ exports.alerts = (req, res, next) => {
   const { alert } = req.query;
   if (alert === 'booking') {
     res.locals.alert =
-      "Your booking was successful!,Please check Your Email for Conformation.If your booking doesn't show up here immediately,please come back later";
+      "Your booking was successful! Please check your email for confirmation. If your booking doesn't show up here immediately, please come back later.";
   }
+  next();
 };
 exports.getOverview = catchAsyncError(async (req, res) => {
   const tours = await Tour.find();

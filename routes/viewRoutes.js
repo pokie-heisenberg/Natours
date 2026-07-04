@@ -3,6 +3,9 @@ const router = express.Router();
 const viewController = require('./../controllers/viewController');
 const authController = require('./../controllers/authController');
 const bookingController = require('./../controllers/bookingControllers');
+
+router.use(viewController.alerts);
+
 router.get(
   '/',
   // bookingController.createBookingCheckout,
