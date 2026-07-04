@@ -8,8 +8,12 @@ mixin overviewBox(label,text,icon)
 mixin reviewCard(review)
   .reviews__card
     .reviews__avatar
-      img.reviews__avatar-img(src=`/img/users/${review.user.photo}`, alt='Jim Brown')
-      h6.reviews__user= review.user.name
+      if review.user
+        img.reviews__avatar-img(src=`/img/users/${review.user.photo}`, alt=`${review.user.name}`)
+        h6.reviews__user= review.user.name
+      else
+        img.reviews__avatar-img(src=`/img/users/default.jpg`, alt='Deleted User')
+        h6.reviews__user Deleted User
 
     p.reviews__text= review.review
 
@@ -42,14 +46,14 @@ block content
           .heading-box__detail
             svg.heading-box__icon
               use(xlink:href='/img/icons.svg#icon-map-pin')
-            span.heading-box__text= tour.startLocation.description
+            span.heading-box__text= tour.startLocation ? tour.startLocation.description : 'Unknown Location'
 
     section.section-description
       .overview-box
         div
           .overview-box__group
             h2.heading-secondary.ma-bt-lg Quick facts
-            - const date = tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'});
+            - const date = tour.startDates && tour.startDates[0] ? tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'}) : 'TBA';
             +overviewBox('Next date',date,'calendar')
             +overviewBox('Difficulty',tour.difficulty,'trending-up')
             +overviewBox('Participants',`${tour.maxGroupSize} people`,'user')
@@ -88,8 +92,10 @@ block content
         .cta__img.cta__img--logo
           img(src='/img/logo-white.png', alt='Natours logo')
 
-        img.cta__img.cta__img--1(src=`/img/tours/${tour.images[0]}`, alt='')
-        img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1]}`, alt='')
+        - const img1 = tour.images && tour.images[0] ? tour.images[0] : 'tour-1-1.jpg'
+        - const img2 = tour.images && tour.images[1] ? tour.images[1] : 'tour-1-2.jpg'
+        img.cta__img.cta__img--1(src=`/img/tours/${img1}`, alt='')
+        img.cta__img.cta__img--2(src=`/img/tours/${img2}`, alt='')
 
         .cta__content
           h2.heading-secondary What are you waiting for?
