@@ -2,7 +2,6 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-app.set('trust proxy', 1);
 const morgan = require('morgan');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -15,12 +14,21 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors');
+
 const globalErrorHandler = require('./controllers/errorController');
 const viewRouter = require('./routes/viewRoutes');
 const compression = require('compression');
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+//implement CORS
+app.use(cors());
+// app.use(cors({
+//   origin:'https://www.natous.com'
+// }))
+app.options('*', cors());
 // middleware
+console.log(process.env.NODE_ENV);
 
 //1.set security headers
 // app.use(helmet());
@@ -54,6 +62,7 @@ const limiter = rateLimiter({
 });
 app.use('/api', limiter);
 app.use((req, res, next) => {
+  // console.log(req.cookies);
   next();
 });
 app.use(express.static(`${__dirname}/public`));
