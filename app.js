@@ -11,6 +11,7 @@ const appError = require('./utils/appError');
 const rateLimiter = require('express-rate-limit');
 const cookiePraser = require('cookie-parser');
 const helmet = require('helmet');
+const bookingControllers = require('./controllers/bookingControllers');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
@@ -29,7 +30,11 @@ app.use(cors());
 app.options('*', cors());
 // middleware
 console.log(process.env.NODE_ENV);
-
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingControllers.webhookCheckout
+);
 //1.set security headers
 // app.use(helmet());
 app.use(express.json()); // important The issue is that express-mongo-sanitize needs to work with already-parsed JSON data, but it's being applied before the request body is parsed from the raw buffer. This means the sanitization middleware has nothing to sanitize yet.
