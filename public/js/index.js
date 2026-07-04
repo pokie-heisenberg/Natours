@@ -126,7 +126,7 @@ if (bookBtn) {
   });
 }
 const alertMessage = document.querySelector('body').dataset.alert;
-if (alert) showAlert('success', alertMessage, 10);
+if (alertMessage) showAlert('success', alertMessage, 10);
 // Prevent back-forward cache (bfcache) issues
 window.addEventListener('pageshow', function (event) {
   if (event.persisted) {
