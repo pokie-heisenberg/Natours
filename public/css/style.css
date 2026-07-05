@@ -331,6 +331,8 @@ body {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+    height: auto;
+    padding: 2rem 5rem;
   }
 }
 .header__logo img {
@@ -932,11 +934,14 @@ body {
 @media only screen and (max-width: 62.5em) {
   .nav--tours {
     margin-bottom: 1.5rem;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
   }
 }
 @media only screen and (max-width: 37.5em) {
   .nav--tours {
-    margin-bottom: 0;
+    margin-bottom: 1.5rem;
   }
 }
 .nav--user {
@@ -946,6 +951,13 @@ body {
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+}
+@media only screen and (max-width: 62.5em) {
+  .nav--user {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+  }
 }
 .nav__el,
 .nav__el:link,
